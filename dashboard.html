@@ -592,7 +592,6 @@ body{
 
     <div class="brand">
 
-
         <div class="brand-logo">
             MP
         </div>
@@ -610,7 +609,6 @@ body{
 
         </div>
 
-
     </div>
 
 
@@ -618,9 +616,12 @@ body{
 
     <div class="user-area">
 
+        <div
+            class="user-name"
+            id="loginUser">
 
-        <div class="user-name">
             ADMIN
+
         </div>
 
 
@@ -631,7 +632,6 @@ body{
             LOGOUT
 
         </button>
-
 
     </div>
 
@@ -698,7 +698,7 @@ body{
 
             <div
                 class="option"
-                onclick="showMessage('PROFILE')">
+                onclick="openPage('profile.html')">
 
                 <div class="option-icon">
                     👤
@@ -720,7 +720,7 @@ body{
 
             <div
                 class="option"
-                onclick="showMessage('SALARY')">
+                onclick="openPage('salary.html')">
 
                 <div class="option-icon">
                     💰
@@ -742,7 +742,7 @@ body{
 
             <div
                 class="option"
-                onclick="showMessage('PETROL')">
+                onclick="openPage('petrol.html')">
 
                 <div class="option-icon">
                     ⛽
@@ -764,7 +764,7 @@ body{
 
             <div
                 class="option"
-                onclick="showMessage('REWARD')">
+                onclick="openPage('reward.html')">
 
                 <div class="option-icon">
                     🏆
@@ -786,7 +786,7 @@ body{
 
             <div
                 class="option"
-                onclick="showMessage('BILL')">
+                onclick="openPage('bill.html')">
 
                 <div class="option-icon">
                     📄
@@ -808,7 +808,7 @@ body{
 
             <div
                 class="option"
-                onclick="showMessage('REPORTS')">
+                onclick="openPage('reports.html')">
 
                 <div class="option-icon">
                     📊
@@ -830,7 +830,7 @@ body{
 
             <div
                 class="option"
-                onclick="showMessage('EMPLOYEE')">
+                onclick="openPage('employee.html')">
 
                 <div class="option-icon">
                     👮
@@ -852,7 +852,7 @@ body{
 
             <div
                 class="option"
-                onclick="showMessage('SETTINGS')">
+                onclick="openPage('settings.html')">
 
                 <div class="option-icon">
                     ⚙️
@@ -891,17 +891,41 @@ body{
 
 <script>
 
-
 /* =========================
-   SHOW OPTION MESSAGE
+   OPEN PAGE
 ========================= */
 
-function showMessage(option){
+function openPage(page){
 
-    alert(
-        option +
-        " page will be added next."
-    );
+    window.location.href = page;
+
+}
+
+
+/* =========================
+   LOGIN USER
+========================= */
+
+function loadUser(){
+
+    const username =
+        sessionStorage.getItem(
+            "payrollUser"
+        );
+
+
+    const userElement =
+        document.getElementById(
+            "loginUser"
+        );
+
+
+    if(username && userElement){
+
+        userElement.textContent =
+            username.toUpperCase();
+
+    }
 
 }
 
@@ -912,10 +936,29 @@ function showMessage(option){
 
 function logout(){
 
+    sessionStorage.removeItem(
+        "payrollLogin"
+    );
+
+    sessionStorage.removeItem(
+        "payrollUser"
+    );
+
+
     window.location.href =
         "index.html";
 
 }
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadUser
+);
 
 </script>
 
