@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +9,15 @@
       content="width=device-width, initial-scale=1.0">
 
 <title>MP Police Payroll System - Login</title>
+
+
+<!-- ==================================================
+     SUPABASE
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
 
 
 <style>
@@ -381,6 +389,23 @@ body{
 
 
 /* =========================
+   SUCCESS MESSAGE
+========================= */
+
+.message.success{
+
+    display:block;
+
+    background:#eefbf3;
+
+    color:#21864b;
+
+    border:1px solid #c9efd8;
+
+}
+
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -598,7 +623,8 @@ body{
 
             <button
                 type="submit"
-                class="login-btn">
+                class="login-btn"
+                id="loginButton">
 
                 LOGIN
 
@@ -636,6 +662,7 @@ body{
 
 
 <script>
+
 
 /* ==================================================
    SHOW / HIDE PASSWORD
@@ -676,7 +703,8 @@ function togglePassword(){
 
 document
 .getElementById("loginForm")
-.addEventListener("submit", function(event){
+.addEventListener("submit", async function(event){
+
 
     /*
        Browser ka default form submit
@@ -710,6 +738,11 @@ document
         .getElementById("message");
 
 
+    const loginButton =
+        document
+        .getElementById("loginButton");
+
+
 
     /* ==================================================
        LOGIN DETAILS
@@ -721,7 +754,23 @@ document
     ){
 
 
-        /* LOGIN SUCCESS */
+        /* BUTTON */
+
+        loginButton.disabled = true;
+
+        loginButton.textContent = "LOGIN SUCCESS...";
+
+
+        /* SUCCESS MESSAGE */
+
+        message.textContent =
+            "Login successful. Opening dashboard...";
+
+        message.className =
+            "message success";
+
+
+        /* LOGIN SESSION */
 
         sessionStorage.setItem(
             "payrollLogin",
@@ -739,9 +788,13 @@ document
            Dashboard open
         */
 
-        window.location.assign(
-            "dashboard.html"
-        );
+        setTimeout(function(){
+
+            window.location.assign(
+                "dashboard.html"
+            );
+
+        }, 500);
 
 
     }
@@ -754,14 +807,18 @@ document
         message.textContent =
             "Invalid username or password";
 
-
         message.className =
             "message show error";
 
 
+        loginButton.disabled = false;
+
+        loginButton.textContent = "LOGIN";
+
     }
 
 });
+
 
 </script>
 
@@ -769,4 +826,3 @@ document
 </body>
 
 </html>
-```
